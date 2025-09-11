@@ -27,11 +27,11 @@ public class BookService {
         return bookRepo.save(book);
     }
 
-    public Book updateBookById(int id, Book book){
-        if(bookRepo.existsById(id)){
+    public Book updateBookById(int id, Book book) {
+        if (bookRepo.existsById(id)) {
             book.setId(id);
             return bookRepo.save(book);
-        }else{
+        } else {
             return null;
         }
     }
