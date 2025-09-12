@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
 @CrossOrigin
+@RequestMapping("/api")
 public class BookController {
 
     private BookService bookService;
@@ -31,17 +31,12 @@ public class BookController {
     }
 
     @PostMapping("/books")
-    public ResponseEntity<Book> addBook(@RequestBody Book book){
-        return new ResponseEntity<>(bookService.addBook(book),HttpStatus.OK);
-    }
-
-    @PutMapping("/books")
-    public ResponseEntity<String> updateBook(@PathVariable int id, @RequestBody Book book){
+    public ResponseEntity<String> addBook(@PathVariable int id, @RequestBody Book book){
         Book book1 = bookService.getBookById(id);
         if(book1 != null){
-            bookService.updateBookById(id,book);
-            return new ResponseEntity<>("UPDATED",HttpStatus.OK);
-        }else {
+            bookService.addBook(book);
+            return new ResponseEntity<>("Updated", HttpStatus.OK);
+        }else{
             return new ResponseEntity<>("ERROR", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -51,11 +46,10 @@ public class BookController {
         Book book = bookService.getBookById(id);
         if(book != null){
             bookService.deleteBookById(id);
-            return new ResponseEntity<>("Deleted", HttpStatus.OK);
+            return new ResponseEntity<>("Book deleted", HttpStatus.OK);
         }else{
             return new ResponseEntity<>("ERROR", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
 
 }
